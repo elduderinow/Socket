@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {WebSocketService} from "./web-socket.service";
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,8 +9,10 @@ import {WebSocketService} from "./web-socket.service";
 })
 export class AppComponent implements OnInit {
   title = 'socket';
+  input:string = "";
 
   constructor(private WebSocketService: WebSocketService) {
+
   }
 
   ngOnInit() {
@@ -18,4 +21,11 @@ export class AppComponent implements OnInit {
       console.log(data);
     })
   }
+
+  onClick(){
+    this.WebSocketService.listen('sendToAll').subscribe(() => {
+      console.log( this.input)
+    })
+  }
+
 }

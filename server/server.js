@@ -2,26 +2,34 @@ const port = 8080;
 const express = require("express");
 const app = express();
 const http = require("http");
-// const clientPath = `${__dirname}/../client`;
-// app.use(express.static(clientPath));
-
-
 const server = http.createServer(app);
-//let io = require('socket.io')(server);
-
 
 
 const io = require("socket.io")(server, {
     cors: {
-        origin: "http://localhost:8080"
+        origins: ["http://localhost:8080"]
     }
 });
 
+app.get('/', (res, res) => {
+    res.send('hello world')
+})
 
+let userList = new Map();
+
+
+
+let counter = 0;
 
 io.on('connection', (socket) => {
-    console.log('it fucking works');
-    socket.emit('test event', 'here is some data');
+    counter++;
+    console.log(counter + "  someone connected");
+    //socket.emit('test event', 'here is some data');
+
+
+    socket.on('sendToAll', (message) =>{
+        io.emit("displayMessage", (message));
+    });
 });
 
 server.listen(port, () => {
