@@ -4,7 +4,10 @@ $bevelHeight: 2.5px;
 $bevelLight: #f4f3f1;
 $bevelDark: #6f6f6f;
 
+
+
 div.wrapper {
+  position: absolute;
   border-top: $bevelHeight solid $bevelLight;
   border-left: $bevelHeight solid $bevelLight;
   border-bottom: $bevelHeight solid $bevelDark;
@@ -12,6 +15,11 @@ div.wrapper {
   background-color: #d4d0c8;
   padding-left:5px;
   padding-right:5px;
+
+  width:500px;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
 
 
   header {
@@ -43,7 +51,7 @@ div.wrapper {
       ul.boxes {
         position: absolute;
         right:15px;
-        top:18px;
+        top:15px;
         li {
           float:right;
           width:25px;
@@ -55,20 +63,47 @@ div.wrapper {
           border-left: calc(#{$bevelHeight} / 1.2) solid $bevelLight;
           border-bottom: calc(#{$bevelHeight} / 1.2) solid $bevelDark;
           border-right: calc(#{$bevelHeight} / 1.2) solid $bevelDark;
+
+          &:hover {
+            border-top: calc(#{$bevelHeight} / 1.5) solid $bevelLight;
+            border-left: calc(#{$bevelHeight} / 1.5) solid $bevelLight;
+            border-bottom: calc(#{$bevelHeight} / 1.5) solid $bevelDark;
+            border-right: calc(#{$bevelHeight} / 1.5) solid $bevelDark;
+          }
         }
       }
-
-
     }
 
     .bottom {
+      button {
+        padding:2px 5px;
+        border-top: calc(#{$bevelHeight} / 1.2) solid $bevelLight;
+        border-left: calc(#{$bevelHeight} / 1.2) solid $bevelLight;
+        border-bottom: calc(#{$bevelHeight} / 1.2) solid $bevelDark;
+        border-right: calc(#{$bevelHeight} / 1.2) solid $bevelDark;
+
+        &:hover {
+          border-top: calc(#{$bevelHeight} / 1.5) solid $bevelLight;
+          border-left: calc(#{$bevelHeight} / 1.5) solid $bevelLight;
+          border-bottom: calc(#{$bevelHeight} / 1.5) solid $bevelDark;
+          border-right: calc(#{$bevelHeight} / 1.5) solid $bevelDark;
+        }
+
+      }
+
+      input {
+        border-top: $bevelHeight solid $bevelDark;
+        border-left: $bevelHeight solid $bevelDark;
+        border-bottom: $bevelHeight solid $bevelLight;
+        border-right: $bevelHeight solid $bevelLight;
+      }
       padding:5px;
       ul li {
         display: inline-block;
         margin-right:10px;
 
         &:hover {
-          font-weight: bold;
+         text-decoration: underline;
           cursor:pointer;
         }
       }
@@ -86,13 +121,13 @@ div.wrapper {
         border-bottom:1px solid $bevelLight;
       }
 
-      span:hover {
-        &:after {
-          position: absolute;
-          content: "Viewtiful now meaning, Something or someone that/who is at a level that is so high to call it or them Beautiful is a gross understatement.";
-          width: auto;
-        }
-      }
+      //span:hover {
+      //  &:after {
+      //    position: absolute;
+      //    content: "Viewtiful now meaning, Something or someone that/who is at a level that is so high to call it or them Beautiful is a gross understatement.";
+      //    width: auto;
+      //  }
+      //}
     }
   }
 
@@ -108,10 +143,27 @@ div.wrapper {
       background-color: #ffffff;
       border-radius: 2px;
       margin-bottom: 10px;
+
+      .left.side {
+        ul {
+          li {
+            img {
+              transform: translateY(-2px);
+              width: 25px;
+            }
+          }
+        }
+      }
+
+      .right-side {
+        .user-message {
+
+        }
+      }
     }
 
     .text-view {
-      margin-top: 10px;
+     margin-top: 10px;
 
       .text-inner {
         width: 100%;
@@ -149,6 +201,7 @@ div.wrapper {
     }
 
     .footer-view {
+      margin-top: 5px;
       padding:5px;
       border-top: $bevelHeight solid $bevelDark;
       border-left: $bevelHeight solid $bevelDark;

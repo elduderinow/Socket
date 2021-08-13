@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {WebSocketService} from "./web-socket.service";
+import { io } from "socket.io-client";
 
 
 @Component({
@@ -8,24 +9,54 @@ import {WebSocketService} from "./web-socket.service";
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'socket';
-  input:string = "";
+  userName:string = "";
+  message:string = "";
+  messageList: {message:string, userName:string, mine:boolean}[] = [];
+  userList: string[] = [];
+  socket:any;
+  loggedInAs:string = "";
 
   constructor(private WebSocketService: WebSocketService) {
 
   }
 
   ngOnInit() {
-    //connect to socket.io server
-    this.WebSocketService.listen('test event').subscribe((data) => {
-      console.log(data);
+    this.socket = io(`localhost:8080` );
+    this.socket.on('user-list',(userList:string[])=> {
+      this.userList = userList
     })
   }
 
-  onClick(){
-    this.WebSocketService.listen('sendToAll').subscribe(() => {
-      console.log( this.input)
+  setUserName():void {
+    if (!this.userName) {
+      return
+    }
+    this.loggedInAs = this.userName
+    let name = this.userName
+    this.socket = io(`localhost:8080?userName=${name}` );
+
+
+    this.socket.on('user-list',(userList:string[])=> {
+      this.userList = userList
     })
+
+    this.socket.on('message-broadcast', (data:{message:string, userName:string})=> {
+      if (data) {
+        this.messageList.push({message:data.message, userName: data.userName, mine:false})
+      }
+    })
+    this.userName = ""
   }
+
+  sendMessage(): void {
+    if (!this.message || !this.loggedInAs) {
+      return
+    }
+    this.socket.emit('message', this.message);
+    this.messageList.push({message: this.message, userName:this.loggedInAs, mine:true})
+    this.message = "" ;
+
+  }
+
 
 }

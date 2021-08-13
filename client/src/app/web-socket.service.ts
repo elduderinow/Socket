@@ -10,20 +10,23 @@ export class WebSocketService {
   readonly uri:string = "ws://localhost:8080"
 
   constructor() {
-    this.socket = io(this.uri)
+    //this.socket = io(this.uri)
   }
 
+//receive
+//   listen(eventName: string) {
+//     return new Observable((subscriber) => {
+//       this.socket.on(eventName, (data:any) => {
+//         subscriber.next(data);
+//       })
+//     });
+//   }
 
-  listen(eventName: string) {
-    return new Observable((subscriber) => {
-      this.socket.on(eventName, (data:any) => {
-        subscriber.next(data);
-      })
-    });
-  }
+  //send
+  // emit(eventName:string, data:any) {
+  //   this.socket.emit(eventName, data);
+  // }
 
-  emit(eventName:string, data:any) {
-    this.socket.emit(eventName, data);
-  }
+
 
 }

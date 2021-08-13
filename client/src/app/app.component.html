@@ -1,15 +1,15 @@
-<div class="wrapper grid grid-cols-12 p-1">
+<div draggable="true" class="wrapper grid grid-cols-12 p-1">
   <header class="col-span-12">
     <div class="top">
-        <ul class="title">
+        <ul class="title cursor-move">
           <li><img src="../assets/msn.png"/></li>
           <li><h1>MSN Messenger Service</h1></li>
         </ul>
 
         <ul class="boxes">
-          <li></li>
-          <li></li>
-          <li></li>
+          <li class="cursor-pointer"></li>
+          <li class="cursor-pointer"></li>
+          <li class="cursor-pointer"></li>
         </ul>
       </div>
 
@@ -28,18 +28,30 @@
         <li><img src="../assets/user.png">Block</li>
       </ul>
       <hr/>
-      To: <span>Viewtifulyarto &lt;viewtifulyarto@msn.com&gt;</span>
+        <input type="text" [(ngModel)]="userName" placeholder="Username" class="p-1 my-2 mr-2" > <button (click)="setUserName()">Login</button>
+     <br>
+      you are logged in as: {{loggedInAs}}
     </div>
   </header>
   <main class="col-span-12">
-    <div class="chat-view p-1">
-
+    <div class="chat-view p-1 flex flex-row">
+      <div class="left side w-4/12 p-2">
+        <ul class="online icons chatbox__user--active" *ngFor="let user of userList">
+          <li class="w-full"><img class="inline" src="../assets/online.png">{{user}}</li>
+        </ul>
+      </div>
+      <div class="right side w-8/12 p-2 border-l-2 overflow-scroll" >
+        <div class="user-message p-3" *ngFor="let msg of messageList" [ngClass]="{mine:msg.mine}">
+          <p class="name text-blue-700">{{msg.userName}}:</p>
+          <p class="message">{{msg.message}}</p>
+        </div>
+      </div>
     </div>
     <div class="text-view">
-      <form (ngSubmit)="onClick()" #formName="ngForm" class="text-inner">
-        <textarea name="fname" #userInput="ngModel" [(ngModel)]="input" type="text"></textarea>
-        <button>Send</button>
-      </form>
+      <div class="text-inner">
+        <textarea [(ngModel)]="message" type="text"></textarea>
+        <button (click)="sendMessage()">Send</button>
+      </div>
     </div>
 
     <div class="footer-view">
